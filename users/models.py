@@ -3,6 +3,8 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.utils import timezone
 from .managers import UserManager
 
+from django.contrib.auth.models import Permission
+
 
 class User(AbstractBaseUser, PermissionsMixin):
     """ 
@@ -22,3 +24,12 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email + '-' + self.full_name
+
+    def save(self, *args, **kwargs):
+        """ if user is staff, then add some permissions to the user """
+        if self.is_staff == True:
+            permit = Permission.objects.get(codename='view_contenttype')
+            self.user_permissions.add(permit)
+            self.full_name += '- STAFF'
+
+        super().save(*args, **kwargs)
