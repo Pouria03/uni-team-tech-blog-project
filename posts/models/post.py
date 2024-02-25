@@ -1,8 +1,10 @@
 from django.db import models
+from ckeditor.fields import RichTextField
+
 
 class Post(models.Model):
     title = models.CharField(max_length=50)
-    content = models.TextField()
+    content = RichTextField()
     thumbnail = models.ImageField(upload_to='post_image_uploads/')
     date_created = models.DateTimeField(auto_now_add=True)
     is_active = models.BooleanField(db_default=True)

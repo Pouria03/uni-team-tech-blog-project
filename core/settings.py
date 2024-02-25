@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'storages',
+    'ckeditor',
+    'ckeditor_uploader'
 
 ]
 
@@ -124,6 +126,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = Path.joinpath(BASE_DIR, 'static')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
@@ -182,3 +185,20 @@ AWS_STORAGE_BUCKET_NAME = 'uni-tech-blog'
 AWS_SERVICE_NAME = 's3'
 # don't over write files that have simliar names
 AWS_S3_FILE_OVERWRITE = False 
+
+# ckeditor
+CKEDITOR_UPLOAD_PATH = "uploads/" 
+CKEDITOR_FILENAME_GENERATOR = 'utils.get_filename'
+CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
+CKEDITOR_IMAGE_BACKEND = "pillow"
+CKEDITOR_JQUERY_URL = '//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js'
+
+CKEDITOR_CONFIGS = {
+    'default':
+        {
+            'toolbar': 'full',
+            'extraPlugins': ','.join([
+                'codesnippet',
+            ]),
+        },
+}
