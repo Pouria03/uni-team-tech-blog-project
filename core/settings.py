@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     # third party apps :
     'rest_framework',
     'rest_framework_simplejwt',
+    'storages',
 
 ]
 
@@ -171,3 +172,13 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
 }
+
+# storages
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+AWS_ACCESS_KEY_ID = '9d0d0a56-c95c-4391-a85c-4286a25df38e'
+AWS_SECRET_ACCESS_KEY ='c87a1273a69f510ea72d747a661b6f8736f2255b4fccebd1a26c0a6040d8dcbe'
+AWS_S3_ENDPOINT_URL = 'https://s3.ir-thr-at1.arvanstorage.ir'
+AWS_STORAGE_BUCKET_NAME = 'uni-tech-blog'
+AWS_SERVICE_NAME = 's3'
+# don't over write files that have simliar names
+AWS_S3_FILE_OVERWRITE = False 
