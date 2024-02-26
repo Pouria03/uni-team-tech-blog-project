@@ -9,7 +9,7 @@ class Post(models.Model):
     content = RichTextField()
     thumbnail = models.ImageField(upload_to='post_image_uploads/')
     date_created = models.DateTimeField(auto_now_add=True)
-    is_active = models.BooleanField(db_default=True)
+    is_active = models.BooleanField(db_default=True, default=True)
     category = models.ForeignKey(
         'Category', on_delete=models.SET_NULL, blank=True, null=True)
     writer = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
