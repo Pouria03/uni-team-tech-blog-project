@@ -13,6 +13,9 @@ class CategorySerializer(serializers.ModelSerializer):
             },
             'subcategories': {
                 'read_only': True
+            },
+            'id': {
+                'read_only': True
             }
         }
         
