@@ -1,4 +1,7 @@
 # endpoints
+
+> note : for POST, PUT, DELETE methods, authentication needed  
+
 ### users
 * register user : 
             endpoint => api/v1/register-user/
@@ -19,3 +22,70 @@
 
 
 ### posts and categories
+* get all posts :
+        method => GET
+        endpoint => http://127.0.0.1:8000/api/v1/posts/
+
+        data type => json
+
+        how to search => http://127.0.0.1:8000/api/v1/posts/?search=ورودی
+
+        how to filter => http://127.0.0.1:8000/api/v1/posts/?category=آیدی کتگوری
+
+        how to paginate using page number => http://127.0.0.1:8000/api/v1/posts/?page=2
+
+        how to paginate to the last page => http://127.0.0.1:8000/api/v1/posts/?page=last
+
+        how to paginate to the first page => http://127.0.0.1:8000/api/v1/posts/?page=first
+
+* create new post :
+        method => POST
+        endpoint => http://127.0.0.1:8000/api/v1/posts/
+        data type => json
+        input data => title, content, thumbnail, is_active, category(enter title of category),
+                         writer(enter email of the writer) 
+
+* delete a post :
+        method => DELETE
+        endpoint => http://127.0.0.1:8000/api/v1/posts/id/
+        data type => json
+        input data => <int:id>
+
+* update a post :
+        method => PUT
+        endpoint => http://127.0.0.1:8000/api/v1/posts/id/
+        data type => json
+        input data => <int:id>
+
+* retrieve a post :
+        method => GET
+        endpoint => http://127.0.0.1:8000/api/v1/posts/id/
+        data type => json
+        input data => <int:id>
+
+* get all categories and sub categories :
+        method => GET
+        endpoint => http://127.0.0.1:8000/api/v1/categories/
+        data type => json
+
+* create a new category :
+        method => POST
+        endpoint => http://127.0.0.1:8000/api/v1/categories/
+        data type => json
+        input data => title, short_description, parent(enter the id of parent cateogry if you want),
+
+* update a category :
+        method => PUT
+        endpoint => http://127.0.0.1:8000/api/v1/categories/id/
+        data type => json
+        input data => <int:id>
+
+* delete a category :
+        method => DELETE
+        endpoint => http://127.0.0.1:8000/api/v1/categories/id/
+        data type => json
+        input data => <int:id>
+
+
+#### videos
+
