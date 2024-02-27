@@ -45,8 +45,8 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'storages',
     'ckeditor',
-    'ckeditor_uploader'
-
+    'ckeditor_uploader',
+    'django_filters',
 ]
 
 MIDDLEWARE = [

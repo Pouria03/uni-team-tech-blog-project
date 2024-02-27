@@ -7,6 +7,8 @@ from posts.api.v1.serializers import CategorySerializer, PostSerializer
 from posts.permissions import StaffOrSuperuserPermission
 from posts.paginations import PostPagination
 from rest_framework import generics
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import filters
 
 class CategoriesView(APIView):
     serializer_class = CategorySerializer
@@ -56,14 +58,18 @@ class CategoryDetailView(APIView):
         
 
 class PostsView(generics.ListCreateAPIView):
+    """this api view calss handles POST and GET method for model Post.
+        along with pagination, filtering and search. 
+     """
     serializer_class = PostSerializer
     permission_classes = [StaffOrSuperuserPermission]
     pagination_class = PostPagination
     queryset = Post.objects.all()
-
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
+    filterset_fields = ['category']
+    search_fields = ['title', 'content']
+    ordering = ['-date_created']     
         
-        
-
 
 class PostDetailView(APIView):
     serializer_class = PostSerializer
