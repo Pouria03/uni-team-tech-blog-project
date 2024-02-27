@@ -5,8 +5,7 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 class PostManager(models.Manager):
-
-    def get_queryset(self):
+    def get_actives(self):
         return super().get_queryset().filter(is_active='True')
 
 

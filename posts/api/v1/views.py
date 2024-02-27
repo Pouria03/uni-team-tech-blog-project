@@ -4,8 +4,9 @@ from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
 from posts.models import Category, Post
 from posts.api.v1.serializers import CategorySerializer, PostSerializer
-from posts.api.v1.permissions import StaffOrSuperuserPermission
-
+from posts.permissions import StaffOrSuperuserPermission
+from posts.paginations import PostPagination
+from rest_framework import generics
 
 class CategoriesView(APIView):
     serializer_class = CategorySerializer
@@ -53,6 +54,16 @@ class CategoryDetailView(APIView):
         except:
             return Response({"result":"Something went wrong. Try again later"}, status=status.HTTP_400_BAD_REQUEST)
         
+
+class PostsView(generics.ListCreateAPIView):
+    serializer_class = PostSerializer
+    permission_classes = [StaffOrSuperuserPermission]
+    pagination_class = PostPagination
+    queryset = Post.objects.all()
+
+        
+        
+
 
 class PostDetailView(APIView):
     serializer_class = PostSerializer
