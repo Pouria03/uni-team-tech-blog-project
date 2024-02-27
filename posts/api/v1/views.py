@@ -69,7 +69,7 @@ class PostsView(generics.ListCreateAPIView):
     serializer_class = PostSerializer
     permission_classes = [StaffOrSuperuserPermission]
     pagination_class = PostPagination
-    queryset = Post.objects.all()
+    queryset = Post.objects.get_actives()
     filter_backends = [DjangoFilterBackend,
                         filters.SearchFilter,
                          filters.OrderingFilter]
