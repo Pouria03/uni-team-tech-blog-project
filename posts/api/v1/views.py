@@ -2,8 +2,8 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
-from posts.models import Category
-from posts.api.v1.serializers import CategorySerializer
+from posts.models import Category, Post
+from posts.api.v1.serializers import CategorySerializer, PostSerializer
 from posts.api.v1.permissions import StaffOrSuperuserPermission
 
 
@@ -52,3 +52,33 @@ class CategoryDetailView(APIView):
             return Response({"result":"Not found"}, status=status.HTTP_404_NOT_FOUND)
         except:
             return Response({"result":"Something went wrong. Try again later"}, status=status.HTTP_400_BAD_REQUEST)
+        
+
+class PostDetailView(APIView):
+    serializer_class = PostSerializer
+    permission_classes = [StaffOrSuperuserPermission]
+    def setup(self, request, *args, **kwargs):
+        self.this_post = get_object_or_404(Post, id=kwargs['id'])
+        return super().setup(request, *args, **kwargs)
+    
+    def get(self, request, *args, **kwargs):
+        serializer = PostSerializer(self.this_post)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def put(self, request, *args, **kwargs):
+        serializer = PostSerializer(data=request.data, instance=self.this_post, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, *args, **kwargs):
+        try:
+            post_title = self.this_post.title
+            self.this_post.delete()
+            return Response({"result":"{} deleted successfully".format(post_title)}, status=status.HTTP_200_OK)
+        except Category.DoesNotExist:
+            return Response({"result":"Not found"}, status=status.HTTP_404_NOT_FOUND)
+        except:
+            return Response({"result":"Something went wrong. Try again later"}, status=status.HTTP_400_BAD_REQUEST)
+        

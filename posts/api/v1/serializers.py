@@ -1,5 +1,9 @@
 from rest_framework import serializers
-from posts.models import Category
+from posts.models import Category, Post
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
+
 
 class CategorySerializer(serializers.ModelSerializer):
     """ This serializer is used to in CRUD operation """
@@ -24,4 +28,32 @@ class CategorySerializer(serializers.ModelSerializer):
             return CategorySerializer(obj.category_set.all(), many=True).data
         else:
             return []
+        
+
+class PostSerializer(serializers.ModelSerializer):
+    writer = serializers.SlugRelatedField(
+        slug_field='email',
+        queryset=User.objects.all(),
+        allow_null=True,
+        required=True
+    )
+    category = serializers.SlugRelatedField(
+        slug_field='title',
+        queryset=Category.objects.all(),
+        allow_null=True,
+        required=True
+    )
+    class Meta:
+        model = Post
+        fields = ['title', 'date_created', 'content', 'thumbnail', 'writer', 'category', 'is_active']
+        extra_kwargs = {
+            'date_created' : {
+                'read_only' : True
+            }
+        }
+
+    # TODO: get all comments for each post
+    def get_comments(self, obj):
+        pass
+
 
