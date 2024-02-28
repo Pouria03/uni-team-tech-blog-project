@@ -37,9 +37,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # local apps :
-    'users.apps.UsersConfig',
-    'posts.apps.PostsConfig',
     # third party apps :
     'rest_framework',
     'rest_framework_simplejwt',
@@ -47,6 +44,10 @@ INSTALLED_APPS = [
     'ckeditor',
     'ckeditor_uploader',
     'django_filters',
+    # local apps :
+    'users.apps.UsersConfig',
+    'posts.apps.PostsConfig',
+    'videos.apps.VideosConfig',
 ]
 
 MIDDLEWARE = [
