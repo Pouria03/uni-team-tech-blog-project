@@ -5,7 +5,7 @@ from django.shortcuts import get_object_or_404
 from posts.models import Category, Post
 from posts.api.v1.serializers import CategorySerializer, PostSerializer
 from posts.permissions import StaffOrSuperuserPermission
-from posts.paginations import PostPagination
+from helpers.paginations import CustomPageNumberPagination
 from rest_framework import generics
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
@@ -68,7 +68,7 @@ class PostsView(generics.ListCreateAPIView):
      """
     serializer_class = PostSerializer
     permission_classes = [StaffOrSuperuserPermission]
-    pagination_class = PostPagination
+    pagination_class = CustomPageNumberPagination
     queryset = Post.objects.get_actives()
     filter_backends = [DjangoFilterBackend,
                         filters.SearchFilter,
