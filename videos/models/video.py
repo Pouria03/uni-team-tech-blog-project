@@ -16,5 +16,7 @@ class Video(models.Model):
     is_active = models.BooleanField(default=True)
     tags = models.ManyToManyField('Tag')
 
+    objects = VideoManager()
+
     def __str__(self) -> str:
         return self.title
