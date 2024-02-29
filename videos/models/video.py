@@ -14,7 +14,7 @@ class Video(models.Model):
     description = RichTextField()
     file = models.FileField(upload_to='video_files_uploads/')
     is_active = models.BooleanField(default=True)
-    tags = models.ManyToManyField('Tag')
+    tags = models.ManyToManyField('Tag', related_name='videos')
 
     objects = VideoManager()
 
