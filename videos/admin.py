@@ -5,7 +5,7 @@ from videos.models import Video, Tag
 # Register your models here.
 class VideoAdmin(admin.ModelAdmin):
     search_fields = ('title', 'description')
-    list_filter = ('tags')
+    list_filter = ('tags', )
 
 
 admin.site.register(Video, VideoAdmin)
